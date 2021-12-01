@@ -13,6 +13,7 @@ let dateContainer = document.getElementById('dateContainer');
 let page1 = document.getElementById('page1');
 let page2 = document.getElementById('page2');
 let weekContainer = document.getElementById('weekContainer');
+let icon = document.getElementById('icon');
 
 async function fetchWeather() {
     let newDate = new Date();
@@ -44,13 +45,12 @@ async function fetchWeather() {
             break;
     }
     dateContainer.innerHTML = `${day}, ${date} ${month}`
-    // let city = document.getElementById('city');
-    city.value = "Ghansoli";
+    let city = document.getElementById('city');
     let weatherObj = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city.value}&units=metric&appid=${apiKey}`);
     let weatherJson = await weatherObj.json();
     getFullWeather(weatherJson);
 }
-async function getFullWeather(json){
+async function getFullWeather(json) {
     console.log(json)
     let fullWeatherObj = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${json.coord.lat}&lon=${json.coord.lon}&units=metric&exclude=minutely,hourly&appid=${apiKey}`);
     let fullWeatherJson = await fullWeatherObj.json();
@@ -67,39 +67,31 @@ function renderData(json) {
     dewPoint.innerHTML = `${json.daily[0].dew_point}&#176;C`;
     uvIndex.innerHTML = `${json.daily[0].uvi}`
     feelsLike.innerHTML = `${round(json.daily[0].feels_like.day)}&#176;C`;
-    pressure.innerHTML = `${round(json.daily[0].pressure)}mbar`;
-
+    pressure.innerHTML = `${round(json.daily[0].pressure)}mBar`;
+    chooseIcon(json.daily[0].weather[0].icon);
+    weekContainer.innerHTML = "";
     for (let i = 1; i < json.daily.length; i++) {
         weekContainer.innerHTML += `
         <div class="elem-parent">
+            <div class="day">${moment(json.daily[i].dt*1000).format("dddd")}</div>
+                <div class=temp-parent">
                     <div class="elem">
-                        Temp : ${round(json.daily[i].temp.day)}
+                        Temp : ${round(json.daily[i].temp.day)}&#176;C
                     </div>
                     <div class="elem">
-                        Feels Like : ${round(json.daily[i].feels_like.day)}
-                    </div>
-                    <div class="elem">
-                        Humidity : ${json.daily[i].humidity}
-                    </div>
-                    <div class="elem">
-                        Pressure : ${json.daily[i].pressure}
-                    </div>
-                    <div class="elem">
-                        UV Index : ${json.daily[i].uvi}
-                    </div>
-                    <div class="elem">
-                        Wind : ${json.daily[i].wind_speed}
+                        Feels Like : ${round(json.daily[i].feels_like.day)}&#176;C
                     </div>
                 </div>
+        </div>
         `
     }
-   
+
 }
 function round(value) {
     let roundValue = Math.round(value);
     return roundValue;
 }
-function changePage(page){
+function changePage(page) {
     switch (page) {
         case "home":
             page1.style.display = "flex";
@@ -112,4 +104,39 @@ function changePage(page){
             break;
     }
 }
-changePage("week");
+
+function chooseIcon(iconId){
+    iconId = iconId.slice(0, 2);
+    switch (iconId) {
+        case "01":
+            icon.src = "/icons/sun/clearsky.png";
+            break;
+        case "02":
+            icon.src = "/icons/cloud/cloud.png";
+            break;
+        case "03":
+            icon.src = "/icons/cloud/cloud.png";
+            break;
+        case "04":
+            icon.src = "/icons/cloud/cloud.png";
+            break;
+        case "09":
+            icon.src = "/icons/cloud/rain.png";
+            break;
+        case "10":
+            icon.src = "/icons/cloud/rain.png";
+            break;
+        case "11":
+            icon.src = "/icons/cloud/thunderstorm.png";
+            break;
+        case "13":
+            icon.src = "/icons/cloud/snow.png";
+            break;
+        case "50":
+            icon.src = "/icons/sun/mist.png";
+            break;
+        
+        default:
+            break;
+    }
+}
