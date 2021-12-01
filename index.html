@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <title>Weather App</title>
+</head>
+
+<body>
+    <div class="page1" id="page1">
+        <div class="today" id="dateContainer"></div>
+        <div class="search">
+            <i class="fas fa-map-marker-alt"></i>
+            <input type="text" placeholder="Kebumen, Indonesia" id="city">
+            <button class="searchIcon" onclick="fetchWeather()"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="temp">
+            <h1 id="currentTemp"></h1>
+        </div>
+        <div class="weather">
+            <div class="weatherImg">
+                <img src="/icons/cloud/cloud.png" id="icon" />
+            </div>
+            <div class="weatherCondition">
+                <div class="wind">
+                    Wind
+                    <p class="weatherValue" id="wind"></p>
+                </div>
+                <div class="humidity">
+                    Humidity
+                    <p class="weatherValue" id="humidity"></p>
+                </div>
+            </div>
+        </div>
+        <div class="other">
+            <div class="card">
+                <i class="bi bi-thermometer-sun"></i>
+                <div class="valueContainer">
+                    <h5>UV Index</h5>
+                    <div class="otherValue" id="uvIndex"></div>
+                </div>
+            </div>
+            <div class="card">
+                <i class="bi bi-droplet-half"></i>
+                <div class="valueContainer">
+                    <h5>Humidity</h5>
+                    <div class="otherValue" id="otherHumidity"></div>
+                </div>
+            </div>
+            <div class="card">
+                <i class="bi bi-thermometer-half"></i>
+                <div class="valueContainer">
+                    <h5>High/Low</h5>
+                    <div class="otherValue" id="maxMin"></div>
+                </div>
+            </div>
+            <div class="card">
+                <i class="bi bi-cloud-drizzle"></i>
+                <div class="valueContainer">
+                    <h5>Pressure</h5>
+                    <div class="otherValue" id="pressure"></div>
+                </div>
+            </div>
+            <div class="card">
+                <i class="bi bi-moisture"></i>
+                <div class="valueContainer">
+                    <h5>Dew Point</h5>
+                    <div class="otherValue" id="dewPoint"></div>
+                </div>
+            </div>
+            <div class="card">
+                <i class="bi bi-eye-fill"></i>
+                <div class="valueContainer">
+                    <h5>Feels Like</h5>
+                    <div class="otherValue" id="feelsLike"></div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="navbar">
+            <div onclick="changePage('home')">Home</div>
+            <div onclick="changePage('week')">Week</div>
+        </div>
+    </div>
+    <div class="page2" id="page2">
+        <div class="card-container" id="weekContainer"> 
+        </div>
+        <div class="navbar">
+            <div onclick="changePage('home')">Home</div>
+            <div onclick="changePage('week')">Week</div>
+        </div>
+    </div>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
